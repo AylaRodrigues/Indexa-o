@@ -159,7 +159,8 @@ void InserirArq(Indice* ind, char arv[]){
 
 void LerReceberArquivo(Indice* ind){
     char arv[50];
-    char letras[100];
+    char letras[1000];
+    char *x;
     
     FILE *arq;
     printf("Qual o nome do arquivo?\n");
@@ -176,8 +177,18 @@ void LerReceberArquivo(Indice* ind){
             InserirArq(ind,arv);
             arquivo++;
 			while(!feof(arq)){
-                fscanf(arq, "%s", letras);
-                InserirElemento(ind, letras);//colocar na lista a posicao do arquivo, linha
+                int resultado = fgets(letras,1000,arq);
+
+                if (resultado)
+                {
+                	x=strtok(vet, " ");
+                	while(x!=NULL)
+                	{
+                		InserirElemento(ind, letras);//colocar na lista a posicao do arquivo, linha
+                		x =strtok(NULL," ");
+                	}
+                }
+                
 			}
         }
 		fclose(arq); 
